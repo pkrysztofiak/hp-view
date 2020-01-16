@@ -27,6 +27,14 @@ public class ScreensManager {
         screensObservable.delay(0, TimeUnit.SECONDS, Schedulers.single()).subscribe(ScreensManager::onScreensChanged);
     }
     
+    public static Double getWidth() {
+        return widthProperty.get();
+    }
+    
+    public static Double getHeight() {
+        return heightProperty.get();
+    }
+    
     private static void onScreensChanged(ObservableList<Screen> screens) {
         widthProperty.set(screens.stream().map(Screen::getVisualBounds).mapToDouble(Rectangle2D::getWidth).sum());
         heightProperty.set(screens.stream().map(Screen::getVisualBounds).mapToDouble(Rectangle2D::getHeight).sum());
