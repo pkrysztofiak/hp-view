@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
 import pl.pkrysztofiak.hpview.model.panels.panel.PanelModel;
 
 @JsonAutoDetect(fieldVisibility = Visibility.NONE)
-public class HangingProtocolPanel {
+public class HpPanel {
 
     private final String id;
     
@@ -31,7 +31,7 @@ public class HangingProtocolPanel {
     
     private final ObservableList<PanelModel> panels = FXCollections.observableArrayList();
     
-    public HangingProtocolPanel(String id, PanelModel... panels) {
+    public HpPanel(String id, PanelModel... panels) {
         this.id = id;
         this.panels.setAll(panels);
     }
