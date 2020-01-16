@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.Observable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
-import io.reactivex.rxjavafx.sources.Change;
 import io.reactivex.subjects.PublishSubject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -29,8 +28,9 @@ public class Model {
     public final PublishSubject<HangingProtocol> setHp = PublishSubject.create();
     
     private final ObjectProperty<HangingProtocol> hpPropety = new SimpleObjectProperty<>();
-    public final Observable<HangingProtocol> hpObservable = JavaFxObservable.valuesOf(hpPropety);
-    public final Observable<Change<HangingProtocol>> hpChangeObservable = JavaFxObservable.changesOf(hpPropety);
+    private final Observable<HangingProtocol> hpObservable = JavaFxObservable.valuesOf(hpPropety);
+//    public final Observable<Change<HangingProtocol>> hpChangeObservable = JavaFxObservable.changesOf(hpPropety);
+
 
     {
         setHp.delay(0, TimeUnit.SECONDS, JavaFxScheduler.platform()).subscribe(hpPropety::set);
@@ -52,7 +52,7 @@ public class Model {
                     hpPanel.setMinY(visualBounds.getMinY() / ScreensManager.getHeight());
                     hpPanel.setMaxX(visualBounds.getMaxX() / ScreensManager.getWidth());
                     hpPanel.setMaxY(visualBounds.getMaxY() / ScreensManager.getHeight());
-
+                    
                     
                 }
             } else {
