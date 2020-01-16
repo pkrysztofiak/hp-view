@@ -1,31 +1,60 @@
 package pl.pkrysztofiak.hpview.model;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.reactivex.Observable;
+import io.reactivex.rxjavafx.observables.JavaFxObservable;
+import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
+import io.reactivex.subjects.PublishSubject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import pl.pkrysztofiak.hpview.model.hangingprotocol.HangingProtocol;
-import pl.pkrysztofiak.hpview.model.hangingprotocol.panel.HangingProtocolPanel;
-import pl.pkrysztofiak.hpview.model.panels.panel.PanelModel;
+import pl.pkrysztofiak.hpview.utils.ScreensManager;
 
 public class Model {
 
-    private final ObjectProperty<HangingProtocol> hpPropety = new SimpleObjectProperty<>();
+    public final PublishSubject<HangingProtocol> setHp = PublishSubject.create();
     
-    {
-        HangingProtocolPanel hpPanel1 = new HangingProtocolPanel(
-                new PanelModel(0, 0, 0.5, 0.25),
-                new PanelModel(0.5, 0, 1, 0.25),
-                new PanelModel(0, 0.25, 1, 0.75),
-                new PanelModel(0, 0.75, 0.5, 1),
-                new PanelModel(0.5, 0.75, 1, 1)
-                );
-        
-        HangingProtocolPanel hpPanel2 = new HangingProtocolPanel(
-                new PanelModel(0, 0, 0.5, 0.5),
-                new PanelModel(0.5, 0, 1, 0.5),
-                new PanelModel(0, 0.5, 1, 1),
-                new PanelModel(0, 0.5, 1, 1)
-                );
+    private final ObjectProperty<HangingProtocol> hpPropety = new SimpleObjectProperty<>();
+    private final Observable<HangingProtocol> hpObservable = JavaFxObservable.valuesOf(hpPropety);
 
-        HangingProtocol hp = new HangingProtocol(hpPanel1, hpPanel2);
+    {
+        setHp.delay(0, TimeUnit.SECONDS, JavaFxScheduler.platform()).subscribe(hpPropety::set);
+        hpObservable.subscribe(this::onHpChanged);
+    }
+    
+    private void onHpChanged(HangingProtocol hp) {
+        
+        String userHomeDir = System.getProperty("user.home");
+        String appDir = "viewer";
+        Path path = Paths.get(userHomeDir, appDir, hp.getId());
+        if (!Files.exists(path)) {
+            if (hp.getHpPanels().size() <= ScreensManager.screens.size()) {
+                
+            }
+        } else {
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                File file = new File(path.toUri());
+                if (!file.exists()) {
+                    file.getParentFile().mkdirs();
+                }
+                objectMapper.writeValue(file, hp);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            
+        }
+        
     }
 }
