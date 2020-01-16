@@ -1,4 +1,4 @@
-package pl.pkrysztofiak.hpview.model.hangingprotocol.panel;
+package pl.pkrysztofiak.hpview.model.hp.panel;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
@@ -18,16 +18,16 @@ public class HpPanel {
     private final String id;
     
     public final ObjectProperty<Double> minXProperty = new SimpleObjectProperty<>();
-    public final Observable<Double> minXObservable = JavaFxObservable.valuesOf(minXProperty);
+    private final Observable<Double> minXObservable = JavaFxObservable.valuesOf(minXProperty);
     
     public final ObjectProperty<Double> minYProperty = new SimpleObjectProperty<>();
-    public final Observable<Double> minYObservable = JavaFxObservable.valuesOf(minYProperty);
+    private final Observable<Double> minYObservable = JavaFxObservable.valuesOf(minYProperty);
     
     public final ObjectProperty<Double> maxXProperty = new SimpleObjectProperty<>();
-    public final Observable<Double> maxXObservable = JavaFxObservable.valuesOf(maxXProperty);
+    private final Observable<Double> maxXObservable = JavaFxObservable.valuesOf(maxXProperty);
     
     public final ObjectProperty<Double> maxYProperty = new SimpleObjectProperty<>();
-    public final Observable<Double> maxYObservable = JavaFxObservable.valuesOf(maxYProperty);
+    private final Observable<Double> maxYObservable = JavaFxObservable.valuesOf(maxYProperty);
     
     private final ObservableList<PanelModel> panels = FXCollections.observableArrayList();
     
@@ -50,6 +50,10 @@ public class HpPanel {
         return minXProperty.get();
     }
     
+    public Observable<Double> minXObservable() {
+        return minXObservable;
+    }
+    
     public void setMinY(double value) {
         minYProperty.set(value);
     }
@@ -57,6 +61,10 @@ public class HpPanel {
     @JsonGetter()
     public Double getMinY() {
         return minYProperty.get();
+    }
+    
+    public Observable<Double> minYObservable() {
+        return minYObservable;
     }
     
     public void setMaxX(double value) {
@@ -68,6 +76,10 @@ public class HpPanel {
         return maxXProperty.get();
     }
     
+    public Observable<Double> maxXObservable() {
+        return maxXObservable;
+    }
+    
     public void setMaxY(double value) {
         maxYProperty.set(value);
     }
@@ -75,5 +87,14 @@ public class HpPanel {
     @JsonGetter()
     public Double getMaxY() {
         return maxYProperty.get();
+    }
+    
+    public Observable<Double> maxYObservable() {
+        return maxYObservable;
+    }
+    
+    @Override
+    public String toString() {
+        return "HpPanel[minX=" + minXProperty.get() + ", minY=" + minYProperty.get() + ", maxX=" + maxXProperty.get() + ", maxY=" + maxYProperty.get() + "]";
     }
 }

@@ -6,7 +6,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import pl.pkrysztofiak.hpview.model.hangingprotocol.panel.HpPanel;
+import pl.pkrysztofiak.hpview.model.hp.panel.HpPanel;
 import pl.pkrysztofiak.hpview.model.panels.grid.panel.GridPanelModel;
 
 public class GridPanelsModel {

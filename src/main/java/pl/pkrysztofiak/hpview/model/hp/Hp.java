@@ -1,8 +1,8 @@
-package pl.pkrysztofiak.hpview.model.hangingprotocol;
+package pl.pkrysztofiak.hpview.model.hp;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import pl.pkrysztofiak.hpview.model.hangingprotocol.panel.HpPanel;
+import pl.pkrysztofiak.hpview.model.hp.panel.HpPanel;
 
 public class Hp {
 

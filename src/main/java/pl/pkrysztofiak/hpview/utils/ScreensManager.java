@@ -4,11 +4,10 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
-import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 
 public class ScreensManager {
@@ -18,13 +17,13 @@ public class ScreensManager {
     public static final Observable<Screen> screenAddedObservable = JavaFxObservable.additionsOf(screens);
     public static final Observable<Screen> screenRemovedObservable = JavaFxObservable.removalsOf(screens);
 
-    private static final ObjectProperty<Double> widthProperty = new SimpleObjectProperty<>();
+    private static final ObjectProperty<Double> widthProperty = new SimpleObjectProperty<>(3840.);
     public static final Observable<Double> widthObservable = JavaFxObservable.valuesOf(widthProperty);
-    private static final ObjectProperty<Double> heightProperty = new SimpleObjectProperty<>();
+    private static final ObjectProperty<Double> heightProperty = new SimpleObjectProperty<>(1200.);
     public static final Observable<Double> heightObservable = JavaFxObservable.valuesOf(widthProperty);
     
     static {
-        screensObservable.delay(0, TimeUnit.SECONDS, Schedulers.single()).subscribe(ScreensManager::onScreensChanged);
+        screensObservable.delay(0, TimeUnit.SECONDS, JavaFxScheduler.platform()).subscribe(ScreensManager::onScreensChanged);
     }
     
     public static Double getWidth() {
@@ -36,7 +35,16 @@ public class ScreensManager {
     }
     
     private static void onScreensChanged(ObservableList<Screen> screens) {
-        widthProperty.set(screens.stream().map(Screen::getVisualBounds).mapToDouble(Rectangle2D::getWidth).sum());
-        heightProperty.set(screens.stream().map(Screen::getVisualBounds).mapToDouble(Rectangle2D::getHeight).sum());
+//        widthProperty.set(screens.stream().map(Screen::getVisualBounds).mapToDouble(Rectangle2D::getWidth).sum());
+//        heightProperty.set(screens.stream().map(Screen::getVisualBounds).mapToDouble(Rectangle2D::getHeight).sum());
+//        System.out.println("width=" + widthProperty.get() + ", height=" + heightProperty.get());
+    }
+    
+    public static Double toPixelX(double x) {
+        return x * widthProperty.get();
+    }
+    
+    public static Double toPixelY(double y) {
+        return y * heightProperty.get();
     }
 }

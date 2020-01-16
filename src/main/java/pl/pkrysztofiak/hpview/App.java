@@ -3,8 +3,8 @@ package pl.pkrysztofiak.hpview;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import pl.pkrysztofiak.hpview.model.Model;
-import pl.pkrysztofiak.hpview.model.hangingprotocol.Hp;
-import pl.pkrysztofiak.hpview.model.hangingprotocol.panel.HpPanel;
+import pl.pkrysztofiak.hpview.model.hp.Hp;
+import pl.pkrysztofiak.hpview.model.hp.panel.HpPanel;
 import pl.pkrysztofiak.hpview.model.panels.panel.PanelModel;
 import pl.pkrysztofiak.hpview.view.View;
 
