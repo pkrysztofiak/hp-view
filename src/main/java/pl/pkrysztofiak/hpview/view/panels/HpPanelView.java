@@ -11,12 +11,14 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import pl.pkrysztofiak.hpview.model.hp.panel.HpPanel;
+import pl.pkrysztofiak.hpview.model.panels.grid.GridPanelsModel;
 import pl.pkrysztofiak.hpview.view.panels.grid.GridPanelsView;
 
 public class HpPanelView extends Stage {
 
-    private final GridPanelsView gridPanelsView = new GridPanelsView();
-    private final StackPane root = new StackPane(gridPanelsView);
+    private final GridPanelsModel gridPanelsModel = new GridPanelsModel();
+    
+    private final StackPane root = new StackPane(new GridPanelsView(gridPanelsModel));
     private final Scene scene = new Scene(root);
 
     {

@@ -8,11 +8,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
 import pl.pkrysztofiak.hpview.model.hp.panel.HpPanel;
+import pl.pkrysztofiak.hpview.model.panels.grid.GridPanelsModel;
 import pl.pkrysztofiak.hpview.model.panels.panel.PanelModel;
 import pl.pkrysztofiak.hpview.view.panels.grid.lines.GridLineView;
 
 public class GridPanelsView extends Pane {
 
+    private final GridPanelsModel gridPanelsModel;
+    
     private final ObjectProperty<HpPanel> hpPanelProperty = new SimpleObjectProperty<>();
     private final Observable<HpPanel> hpPanelObservable = JavaFxObservable.valuesOf(hpPanelProperty);
     
@@ -20,10 +23,11 @@ public class GridPanelsView extends Pane {
     
     {
         hpPanelObservable.subscribe(this::onHpPanelChanged);
+//        hpPanelObservable.switchMap(HpPanel::getPanels)
     }
     
-    public GridPanelsView() {
-        
+    public GridPanelsView(GridPanelsModel gridPanelsModel) {
+        this.gridPanelsModel = gridPanelsModel;
     }
     
     private void onHpPanelChanged(HpPanel hpPanel) {

@@ -31,6 +31,8 @@ public class HpPanel {
     
     private final ObservableList<PanelModel> panels = FXCollections.observableArrayList();
     private final ObservableList<PanelModel> unmodifiablePanels = FXCollections.unmodifiableObservableList(panels);
+    private final Observable<PanelModel> panelAddedObservable = JavaFxObservable.additionsOf(unmodifiablePanels);
+    private final Observable<PanelModel> panelRemovedObservable = JavaFxObservable.removalsOf(unmodifiablePanels);
     
     public HpPanel(String id, PanelModel... panels) {
         this.id = id;
@@ -96,6 +98,14 @@ public class HpPanel {
     
     public ObservableList<PanelModel> getPanels() {
         return unmodifiablePanels;
+    }
+    
+    public Observable<PanelModel> panelAddedObservable() {
+        return panelAddedObservable;
+    }
+    
+    public Observable<PanelModel> panelRemovedObservable() {
+        return panelRemovedObservable;
     }
     
     @Override

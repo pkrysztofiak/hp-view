@@ -41,14 +41,11 @@ public class Model {
                 HpPanel hpPanel = hpPanels.get(i);
                 Screen screen = ScreensManager.screens.get(i);
                 Rectangle2D visualBounds = screen.getVisualBounds();
-                System.out.println(visualBounds);
                 
                 hpPanel.setMinX(visualBounds.getMinX());
                 hpPanel.setMinY(visualBounds.getMinY());
                 hpPanel.setMaxX(visualBounds.getMaxX());
                 hpPanel.setMaxY(visualBounds.getMaxY());
-                
-                System.out.println(hpPanel);
                 
                 if (i < hpPanelsWrappers.size()) {
                     hpPanelsWrappers.get(i).setHpPanel(hpPanel);
