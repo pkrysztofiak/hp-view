@@ -37,6 +37,7 @@ public class HpPanelView extends Stage {
     
     public HpPanelView(HpPanel hpPanel) {
         hpPanelProperty.set(hpPanel);
+        gridPanelsModel.setHpPanel.onNext(hpPanel);
     }
  
     public void setHpPanel(HpPanel hpPanel) {
