@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
-import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -30,7 +30,7 @@ public class Model {
     private final Observable<HpPanelWrapper> hpPanelWrapperRemovedObservable = JavaFxObservable.removalsOf(hpPanelsWrappers);
 
     {
-        setHp.delay(0, TimeUnit.SECONDS, JavaFxScheduler.platform()).subscribe(hpPropety::set);
+        setHp.delay(0, TimeUnit.SECONDS, Schedulers.single()).subscribe(hpPropety::set);
         hpObservable.subscribe(this::onHpChanged);
     }
     
