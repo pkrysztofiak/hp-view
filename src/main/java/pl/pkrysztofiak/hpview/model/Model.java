@@ -43,10 +43,10 @@ public class Model {
                 Rectangle2D visualBounds = screen.getVisualBounds();
                 System.out.println(visualBounds);
                 
-                hpPanel.setMinX(visualBounds.getMinX() / ScreensManager.getWidth());
-                hpPanel.setMinY(visualBounds.getMinY() / ScreensManager.getHeight());
-                hpPanel.setMaxX(visualBounds.getMaxX() / ScreensManager.getWidth());
-                hpPanel.setMaxY(visualBounds.getMaxY() / ScreensManager.getHeight());
+                hpPanel.setMinX(visualBounds.getMinX());
+                hpPanel.setMinY(visualBounds.getMinY());
+                hpPanel.setMaxX(visualBounds.getMaxX());
+                hpPanel.setMaxY(visualBounds.getMaxY());
                 
                 System.out.println(hpPanel);
                 

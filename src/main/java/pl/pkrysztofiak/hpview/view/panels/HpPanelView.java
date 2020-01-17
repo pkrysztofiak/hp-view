@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import pl.pkrysztofiak.hpview.model.hp.panel.HpPanel;
-import pl.pkrysztofiak.hpview.utils.ScreensManager;
 
 public class HpPanelView extends Stage {
 
@@ -27,10 +26,10 @@ public class HpPanelView extends Stage {
     
     {
         setScene(scene);
-        hpPanelMinXObservable.map(ScreensManager::toPixelX).observeOn(JavaFxScheduler.platform()).subscribe(this::setX);
-        hpPanelMinYObservable.map(ScreensManager::toPixelY).observeOn(JavaFxScheduler.platform()).subscribe(this::setY);
-        Observable.combineLatest(hpPanelMinXObservable.map(ScreensManager::toPixelX), hpPanelMaxXObservable.map(ScreensManager::toPixelX), (pxMinX, pxMaxX) -> pxMaxX - pxMinX).subscribe(this::setWidth);
-        Observable.combineLatest(hpPanelMinYObservable.map(ScreensManager::toPixelY), hpPanelMaxYObservable.map(ScreensManager::toPixelY), (pxMinX, pxMaxX) -> pxMaxX - pxMinX).subscribe(this::setWidth);
+        hpPanelMinXObservable.observeOn(JavaFxScheduler.platform()).subscribe(this::setX);
+        hpPanelMinYObservable.observeOn(JavaFxScheduler.platform()).subscribe(this::setY);
+        Observable.combineLatest(hpPanelMinXObservable, hpPanelMaxXObservable, (pxMinX, pxMaxX) -> pxMaxX - pxMinX).subscribe(this::setWidth);
+        Observable.combineLatest(hpPanelMinYObservable, hpPanelMaxYObservable, (pxMinX, pxMaxX) -> pxMaxX - pxMinX).subscribe(this::setHeight);
     }
     
     public HpPanelView(HpPanel hpPanel) {
