@@ -1,5 +1,12 @@
 package pl.pkrysztofiak.hpview.model.panels.grid.lines.vertical;
 
-public class VLineModel {
+import pl.pkrysztofiak.hpview.model.panels.grid.lines.LineModel;
+import pl.pkrysztofiak.hpview.model.panels.panel.PanelModel;
+
+public class VLineModel extends LineModel {
+
+    public VLineModel(PanelModel panel) {
+        super(panel);
+    }
 
 }

@@ -31,7 +31,11 @@ public class GridPanelsModel {
     }
     
     private final ObservableList<GridLineModel> gridLines = FXCollections.observableArrayList();
-    
+    private final ObservableList<GridLineModel> unmodifiableGridLines = FXCollections.unmodifiableObservableList(gridLines);
+    private final Observable<GridLineModel> gridLineAddedObservable = JavaFxObservable.additionsOf(unmodifiableGridLines);
+    private final Observable<GridLineModel> gridLineRemovedObservable = JavaFxObservable.removalsOf(unmodifiableGridLines);
+
+    //TODO dodać to jeszcze
 //    private final ObservableList<GridPanelModel> gridPanels = FXCollections.observableArrayList();
     
 
@@ -87,5 +91,17 @@ public class GridPanelsModel {
                 .filter(gridLine -> orientation.equals(gridLine.getOrientation()))
                 .filter(gridLine -> gridLine.getRatioPosition().equals(ratioPosition))
                 .findFirst();
+    }
+    
+    public Observable<GridLineModel> gridLineAddedObservable() {
+        return gridLineAddedObservable;
+    }
+    
+    public Observable<GridLineModel> gridLineRemovedObservable() {
+        return gridLineRemovedObservable;
+    }
+    
+    public ObservableList<GridLineModel> getGridLines() {
+        return unmodifiableGridLines;
     }
 }
