@@ -57,4 +57,9 @@ public class PanelModel {
     public Double getRatioMaxY() {
         return ratioMaxYProperty.get();
     }
+    
+    @Override
+    public String toString() {
+        return "PanelModel[ratioMinX=" + ratioMinXProperty.get() + ", ratioMinY=" + ratioMinYProperty.get() + ", ratioMaxX=" + ratioMaxXProperty.get() + ", ratioMaxY=" + ratioMaxYProperty.get() + "]";
+    }
 }

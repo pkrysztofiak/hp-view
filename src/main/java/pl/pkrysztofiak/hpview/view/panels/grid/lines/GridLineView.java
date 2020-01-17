@@ -3,6 +3,7 @@ package pl.pkrysztofiak.hpview.view.panels.grid.lines;
 import io.reactivex.Observable;
 import io.reactivex.rxjavafx.observables.JavaFxObservable;
 import io.reactivex.rxjavafx.schedulers.JavaFxScheduler;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
@@ -21,6 +22,8 @@ public abstract class GridLineView extends Pane {
     public GridLineView(GridLineModel gridLineModel, GridPanelsView gridPanelsView) {
         this.gridLineModel = gridLineModel;
         this.gridPanelsView = gridPanelsView;
+        
+        Bindings.bindContent(getChildren(), lines);
 
         Observable.fromIterable(gridLineModel.getLines()).observeOn(JavaFxScheduler.platform()).subscribe(this::onLineModelAdded);
         gridLineModel.lineAddedObservable().observeOn(JavaFxScheduler.platform()).subscribe(this::onLineModelAdded);
