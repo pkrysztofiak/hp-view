@@ -4,7 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
+import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
+import pl.pkrysztofiak.hpview.model.panels.grid.lines.GridLineModel;
 
 public class GridLineDragBehaviour {
 
@@ -18,7 +20,7 @@ public class GridLineDragBehaviour {
         mouseReleased.delay(0, TimeUnit.SECONDS, Schedulers.single()).subscribe(this::onMouseReleased);
     }
     
-    public GridLineDragBehaviour() {
+    public GridLineDragBehaviour(GridLineModel gridLineModel, ObservableList<? extends GridLineModel> gridLines) {
         
     }
     

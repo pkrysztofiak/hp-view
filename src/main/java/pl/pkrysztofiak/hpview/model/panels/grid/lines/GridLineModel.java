@@ -30,7 +30,7 @@ public abstract class GridLineModel {
     protected final ObjectProperty<Double> ratioPositionProperty = new SimpleObjectProperty<>();
     protected final Observable<Double> ratioPositionObservable = JavaFxObservable.valuesOf(ratioPositionProperty);
     
-    public final GridLineDragBehaviour dragBehaviour;
+    public GridLineDragBehaviour dragBehaviour;
     
     {
         //interface
@@ -43,10 +43,9 @@ public abstract class GridLineModel {
     }
     
     
-    public GridLineModel(double ratioPosition, ObservableList<? extends GridLineModel> gridLines, GridLineDragBehaviour dragBehaviour) {
+    public GridLineModel(double ratioPosition, ObservableList<? extends GridLineModel> gridLines) {
         ratioPositionProperty.set(ratioPosition);
         this.gridLines = gridLines;
-        this.dragBehaviour = dragBehaviour;
     }
     
     public Double getRatioPosition() {
