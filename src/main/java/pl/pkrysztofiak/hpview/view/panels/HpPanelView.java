@@ -11,25 +11,26 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import pl.pkrysztofiak.hpview.model.hp.panel.HpPanel;
+import pl.pkrysztofiak.hpview.view.panels.grid.GridPanelsView;
 
 public class HpPanelView extends Stage {
 
-    private final StackPane root = new StackPane();
+    private final GridPanelsView gridPanelsView = new GridPanelsView();
+    private final StackPane root = new StackPane(gridPanelsView);
     private final Scene scene = new Scene(root);
+
+    {
+        setScene(scene);
+    }
     
     private final ObjectProperty<HpPanel> hpPanelProperty = new SimpleObjectProperty<>();
     private final Observable<HpPanel> hpPanelObservable = JavaFxObservable.valuesOf(hpPanelProperty);
-    private final Observable<Double> hpPanelMinXObservable = hpPanelObservable.switchMap(HpPanel::minXObservable);
-    private final Observable<Double> hpPanelMinYObservable = hpPanelObservable.switchMap(HpPanel::minYObservable);
-    private final Observable<Double> hpPanelMaxXObservable = hpPanelObservable.switchMap(HpPanel::maxXObservable);
-    private final Observable<Double> hpPanelMaxYObservable = hpPanelObservable.switchMap(HpPanel::maxYObservable);
     
     {
-        setScene(scene);
-        hpPanelMinXObservable.observeOn(JavaFxScheduler.platform()).subscribe(this::setX);
-        hpPanelMinYObservable.observeOn(JavaFxScheduler.platform()).subscribe(this::setY);
-        Observable.combineLatest(hpPanelMinXObservable, hpPanelMaxXObservable, (pxMinX, pxMaxX) -> pxMaxX - pxMinX).subscribe(this::setWidth);
-        Observable.combineLatest(hpPanelMinYObservable, hpPanelMaxYObservable, (pxMinX, pxMaxX) -> pxMaxX - pxMinX).subscribe(this::setHeight);
+        hpPanelObservable.switchMap(HpPanel::minXObservable).observeOn(JavaFxScheduler.platform()).subscribe(this::setX);
+        hpPanelObservable.switchMap(HpPanel::minYObservable).observeOn(JavaFxScheduler.platform()).subscribe(this::setY);
+        Observable.combineLatest(hpPanelObservable.switchMap(HpPanel::minXObservable), hpPanelObservable.switchMap(HpPanel::maxXObservable), (pxMinX, pxMaxX) -> pxMaxX - pxMinX).observeOn(JavaFxScheduler.platform()).subscribe(this::setWidth);
+        Observable.combineLatest(hpPanelObservable.switchMap(HpPanel::minYObservable), hpPanelObservable.switchMap(HpPanel::maxYObservable), (pxMinX, pxMaxX) -> pxMaxX - pxMinX).observeOn(JavaFxScheduler.platform()).subscribe(this::setHeight);
     }
     
     public HpPanelView(HpPanel hpPanel) {

@@ -30,6 +30,7 @@ public class HpPanel {
     private final Observable<Double> maxYObservable = JavaFxObservable.valuesOf(maxYProperty);
     
     private final ObservableList<PanelModel> panels = FXCollections.observableArrayList();
+    private final ObservableList<PanelModel> unmodifiablePanels = FXCollections.unmodifiableObservableList(panels);
     
     public HpPanel(String id, PanelModel... panels) {
         this.id = id;
@@ -91,6 +92,10 @@ public class HpPanel {
     
     public Observable<Double> maxYObservable() {
         return maxYObservable;
+    }
+    
+    public ObservableList<PanelModel> getPanels() {
+        return unmodifiablePanels;
     }
     
     @Override

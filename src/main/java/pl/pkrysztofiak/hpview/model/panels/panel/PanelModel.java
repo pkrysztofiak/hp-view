@@ -7,54 +7,54 @@ import javafx.beans.property.SimpleObjectProperty;
 
 public class PanelModel {
 
-    public final ObjectProperty<Double> minXProperty = new SimpleObjectProperty<>();
-    public final Observable<Double> minXObservable = JavaFxObservable.valuesOf(minXProperty);
+    public final ObjectProperty<Double> ratioMinXProperty = new SimpleObjectProperty<>();
+    public final Observable<Double> ratioMinXObservable = JavaFxObservable.valuesOf(ratioMinXProperty);
     
-    public final ObjectProperty<Double> minYProperty = new SimpleObjectProperty<>();
-    public final Observable<Double> minYObservable = JavaFxObservable.valuesOf(minYProperty);
+    public final ObjectProperty<Double> ratioMinYProperty = new SimpleObjectProperty<>();
+    public final Observable<Double> ratioMinYObservable = JavaFxObservable.valuesOf(ratioMinYProperty);
     
-    public final ObjectProperty<Double> maxXProperty = new SimpleObjectProperty<>();
-    public final Observable<Double> maxXObservable = JavaFxObservable.valuesOf(maxXProperty);
+    public final ObjectProperty<Double> ratioMaxXProperty = new SimpleObjectProperty<>();
+    public final Observable<Double> ratioMaxXObservable = JavaFxObservable.valuesOf(ratioMaxXProperty);
     
-    public final ObjectProperty<Double> maxYProperty = new SimpleObjectProperty<>();
-    public final Observable<Double> maxYObservable = JavaFxObservable.valuesOf(maxYProperty);
+    public final ObjectProperty<Double> ratioMaxYProperty = new SimpleObjectProperty<>();
+    public final Observable<Double> ratioMaxYObservable = JavaFxObservable.valuesOf(ratioMaxYProperty);
     
-    public PanelModel(double minX, double minY, double maxX, double maxY) {
-        minXProperty.set(minX);
-        minYProperty.set(minY);
-        maxXProperty.set(maxX);
-        maxYProperty.set(maxY);
+    public PanelModel(double ratioMinX, double ratioMinY, double ratioMaxX, double ratioMaxY) {
+        ratioMinXProperty.set(ratioMinX);
+        ratioMinYProperty.set(ratioMinY);
+        ratioMaxXProperty.set(ratioMaxX);
+        ratioMaxYProperty.set(ratioMaxY);
     }
     
-    public void setMinX(double value) {
-        minXProperty.set(value);
+    public void setRatioMinX(double value) {
+        ratioMinXProperty.set(value);
     }
     
-    public Double getMinX() {
-        return minXProperty.get();
+    public Double getRatioMinX() {
+        return ratioMinXProperty.get();
     }
     
-    public void setMinY(double value) {
-        minYProperty.set(value);
+    public void setRatioMinY(double value) {
+        ratioMinYProperty.set(value);
     }
     
-    public Double getMinY() {
-        return minYProperty.get();
+    public Double getRatioMinY() {
+        return ratioMinYProperty.get();
     }
     
-    public void setMaxX(double value) {
-        maxXProperty.set(value);
+    public void setRatioMaxX(double value) {
+        ratioMaxXProperty.set(value);
     }
     
-    public Double getMaxX() {
-        return maxXProperty.get();
+    public Double getRatioMaxX() {
+        return ratioMaxXProperty.get();
     }
     
-    public void setMaxY(double value) {
-        maxYProperty.set(value);
+    public void setRatioMaxY(double value) {
+        ratioMaxYProperty.set(value);
     }
     
-    public Double getMaxY() {
-        return maxYProperty.get();
+    public Double getRatioMaxY() {
+        return ratioMaxYProperty.get();
     }
 }
