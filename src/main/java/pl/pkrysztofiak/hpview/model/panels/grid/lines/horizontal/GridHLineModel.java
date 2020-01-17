@@ -5,12 +5,13 @@ import javafx.collections.ObservableList;
 import pl.pkrysztofiak.hpview.model.panels.grid.lines.GridLineModel;
 import pl.pkrysztofiak.hpview.model.panels.grid.lines.LineModel;
 import pl.pkrysztofiak.hpview.model.panels.grid.lines.Orientation;
+import pl.pkrysztofiak.hpview.model.panels.grid.lines.behaviour.drag.GridLineHorizontalDrag;
 import pl.pkrysztofiak.hpview.model.panels.panel.PanelModel;
 
 public class GridHLineModel extends GridLineModel {
 
     public GridHLineModel(double ratioY, ObservableList<? extends GridLineModel> gridLines) {
-        super(ratioY, gridLines);
+        super(ratioY, gridLines, new GridLineHorizontalDrag());
     }
 
     @Override

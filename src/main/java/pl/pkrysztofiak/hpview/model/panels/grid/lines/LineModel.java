@@ -6,8 +6,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import pl.pkrysztofiak.hpview.model.panels.panel.PanelModel;
 
-public abstract class LineModel {
-
+public abstract class LineModel implements Comparable<LineModel> {
     
     private final ObjectProperty<Double> ratioStartPositionProperty = new SimpleObjectProperty<>();
     private final Observable<Double> ratioStartPositionObservable = JavaFxObservable.valuesOf(ratioStartPositionProperty);
@@ -41,5 +40,14 @@ public abstract class LineModel {
     
     public Observable<Double> ratioEndPositionObservable() {
         return ratioEndPositionObservable;
+    }
+
+    @Override
+    public int compareTo(LineModel otherLine) {
+        int result = ratioStartPositionProperty.get().compareTo(otherLine.getRatioStartPosition());
+        if (result == 0) {
+            result = ratioEndPositionProperty.get().compareTo(otherLine.getRatioEndPosition());
+        }
+        return result;
     }
 }

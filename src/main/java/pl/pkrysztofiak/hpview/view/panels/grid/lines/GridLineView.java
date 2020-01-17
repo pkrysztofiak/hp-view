@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import pl.pkrysztofiak.hpview.model.panels.grid.lines.GridLineModel;
 import pl.pkrysztofiak.hpview.model.panels.grid.lines.LineModel;
 import pl.pkrysztofiak.hpview.view.panels.grid.GridPanelsView;
+import pl.pkrysztofiak.hpview.view.panels.grid.lines.behaviour.drag.GridLineDragBehaviour;
 
 public abstract class GridLineView extends Pane {
 
@@ -18,6 +19,8 @@ public abstract class GridLineView extends Pane {
     
     protected final ObservableList<LineView> lines = FXCollections.observableArrayList();
     protected final Observable<LineView> lineRemovedObservable = JavaFxObservable.removalsOf(lines);
+
+    private final GridLineDragBehaviour dragBehaviour;
     
     public GridLineView(GridLineModel gridLineModel, GridPanelsView gridPanelsView) {
         this.gridLineModel = gridLineModel;
@@ -27,6 +30,8 @@ public abstract class GridLineView extends Pane {
 
         Observable.fromIterable(gridLineModel.getLines()).observeOn(JavaFxScheduler.platform()).subscribe(this::onLineModelAdded);
         gridLineModel.lineAddedObservable().observeOn(JavaFxScheduler.platform()).subscribe(this::onLineModelAdded);
+        
+        dragBehaviour = new GridLineDragBehaviour(this, gridLineModel, gridPanelsView);
     }
     
     private void onLineModelAdded(LineModel lineModel) {

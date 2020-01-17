@@ -10,6 +10,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import pl.pkrysztofiak.hpview.model.panels.grid.lines.behaviour.drag.GridLineDragBehaviour;
 import pl.pkrysztofiak.hpview.model.panels.panel.PanelModel;
 
 public abstract class GridLineModel {
@@ -29,6 +30,8 @@ public abstract class GridLineModel {
     protected final ObjectProperty<Double> ratioPositionProperty = new SimpleObjectProperty<>();
     protected final Observable<Double> ratioPositionObservable = JavaFxObservable.valuesOf(ratioPositionProperty);
     
+    public final GridLineDragBehaviour dragBehaviour;
+    
     {
         //interface
         addPanelModel.delay(0, TimeUnit.SECONDS, Schedulers.single()).subscribe(panels::add);
@@ -40,9 +43,10 @@ public abstract class GridLineModel {
     }
     
     
-    public GridLineModel(double ratioPosition, ObservableList<? extends GridLineModel> gridLines) {
+    public GridLineModel(double ratioPosition, ObservableList<? extends GridLineModel> gridLines, GridLineDragBehaviour dragBehaviour) {
         ratioPositionProperty.set(ratioPosition);
         this.gridLines = gridLines;
+        this.dragBehaviour = dragBehaviour;
     }
     
     public Double getRatioPosition() {
