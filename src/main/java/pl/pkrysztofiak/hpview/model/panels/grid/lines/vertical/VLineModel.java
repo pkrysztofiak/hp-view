@@ -8,5 +8,4 @@ public class VLineModel extends LineModel {
     public VLineModel(PanelModel panel) {
         super(panel);
     }
-
 }

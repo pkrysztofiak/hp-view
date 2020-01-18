@@ -22,14 +22,16 @@ public class GridHLineView extends GridLineView {
     @Override
     protected LineView createLineView(LineModel lineModel) {
         HLineView hLine = new HLineView();
-        Observable<LineView> hLineRemoved = lineRemovedObservable.filter(hLine::equals);
+        
+        Observable<LineModel> hLineModelRemovedObservable = gridLineModel.lineRemovedObservable().filter(lineModel::equals);
+        hLineModelRemovedObservable.take(1).subscribe(removedLineModel -> lines.remove(hLine));
         
         Observable.combineLatest(lineModel.ratioStartPositionObservable(), gridPanelsView.widthObservable(), (ratioStartPosition, width) -> ratioStartPosition * width)
-        .takeUntil(hLineRemoved)
+        .takeUntil(hLineModelRemovedObservable)
         .subscribe(hLine::setStartX);
         
         Observable.combineLatest(lineModel.ratioEndPositionObservable(), gridPanelsView.widthObservable(), (ratioStartPosition, width) -> ratioStartPosition * width)
-        .takeUntil(hLineRemoved)
+        .takeUntil(hLineModelRemovedObservable)
         .subscribe(hLine::setEndX);
         return hLine;
     }

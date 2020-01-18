@@ -8,5 +8,4 @@ public class HLineModel extends LineModel {
     public HLineModel(PanelModel panel) {
         super(panel);
     }
-
 }

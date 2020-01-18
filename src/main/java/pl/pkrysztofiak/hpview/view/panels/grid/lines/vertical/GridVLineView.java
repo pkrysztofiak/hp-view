@@ -23,14 +23,15 @@ public class GridVLineView extends GridLineView {
     protected LineView createLineView(LineModel lineModel) {
         VLineView vLine = new VLineView();
 
-        Observable<LineView> vLineRemoved = lineRemovedObservable.filter(vLine::equals);
+        Observable<LineModel> vLineModelRemovedObservable = gridLineModel.lineRemovedObservable().filter(lineModel::equals);
+        vLineModelRemovedObservable.take(1).subscribe(vLineModel -> lines.remove(vLine));
         
         Observable.combineLatest(lineModel.ratioStartPositionObservable(), gridPanelsView.heightObservable(), (ratioStartPosition, height) -> ratioStartPosition * height)
-        .takeUntil(vLineRemoved)
+        .takeUntil(vLineModelRemovedObservable)
         .subscribe(vLine::setStartY);
         
         Observable.combineLatest(lineModel.ratioEndPositionObservable(), gridPanelsView.heightObservable(), (ratioEndPosition, height) -> ratioEndPosition * height)
-        .takeUntil(vLineRemoved)
+        .takeUntil(vLineModelRemovedObservable)
         .subscribe(vLine::setEndY);
         
         return vLine;

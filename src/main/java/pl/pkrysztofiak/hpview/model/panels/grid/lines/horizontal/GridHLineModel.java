@@ -1,18 +1,25 @@
 package pl.pkrysztofiak.hpview.model.panels.grid.lines.horizontal;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import javafx.collections.ObservableList;
 import pl.pkrysztofiak.hpview.model.panels.grid.lines.GridLineModel;
 import pl.pkrysztofiak.hpview.model.panels.grid.lines.LineModel;
 import pl.pkrysztofiak.hpview.model.panels.grid.lines.Orientation;
-import pl.pkrysztofiak.hpview.model.panels.grid.lines.behaviour.drag.GridLineVerticalDrag;
+import pl.pkrysztofiak.hpview.model.panels.grid.lines.behaviour.drag.GridHLineDrag;
 import pl.pkrysztofiak.hpview.model.panels.panel.PanelModel;
 
 public class GridHLineModel extends GridLineModel {
 
-    public GridHLineModel(double ratioY, ObservableList<? extends GridLineModel> gridLines) {
+    public GridHLineModel(double ratioY, ObservableList<GridLineModel> gridLines) {
         super(ratioY, gridLines);
-        dragBehaviour = new GridLineVerticalDrag(null, gridLines);
+        dragBehaviour = new GridHLineDrag(this, gridLines);
+    }
+    
+    public GridHLineModel(double ratioY, ObservableList<GridLineModel> gridLines, List<PanelModel> panels) {
+        super(ratioY, gridLines, panels);
+        dragBehaviour = new GridHLineDrag(this, gridLines);
     }
 
     @Override

@@ -14,8 +14,14 @@ public abstract class LineModel implements Comparable<LineModel> {
     private final ObjectProperty<Double> ratioEndPositionProperty = new SimpleObjectProperty<>();
     private final Observable<Double> ratioEndPositionObservable = JavaFxObservable.valuesOf(ratioEndPositionProperty);
     
+    private final PanelModel panel;
+    
     public LineModel(PanelModel panel) {
-        
+        this.panel = panel;
+    }
+    
+    public PanelModel getPanel() {
+        return panel;
     }
     
     public Double getRatioStartPosition() {
@@ -40,6 +46,15 @@ public abstract class LineModel implements Comparable<LineModel> {
     
     public Observable<Double> ratioEndPositionObservable() {
         return ratioEndPositionObservable;
+    }
+    
+    public boolean contains(double ratioPosition) {
+        return ratioPosition >= ratioStartPositionProperty.get() && ratioPosition <= ratioEndPositionProperty.get();
+    }
+    
+    public boolean isConnected(LineModel line) {
+//        return !(line.getRatioMaxX() < ratioMinXProperty.get() || line.getRatioMinX() > ratioMaxXProperty.get());
+        return !(line.getRatioEndPosition() < ratioStartPositionProperty.get() || line.getRatioStartPosition() > ratioEndPositionProperty.get());
     }
 
     @Override

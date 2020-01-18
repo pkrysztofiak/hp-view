@@ -1,5 +1,6 @@
 package pl.pkrysztofiak.hpview.model.panels.grid.lines;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -23,6 +24,7 @@ public abstract class GridLineModel {
     protected final Observable<LineModel> lineRemovedObservable = JavaFxObservable.removalsOf(lines);
     
     protected final ObservableList<PanelModel> panels = FXCollections.observableArrayList();
+    protected final ObservableList<PanelModel> unmodifiablePanels = FXCollections.unmodifiableObservableList(panels);
     private final Observable<PanelModel> panelAddedObservable = JavaFxObservable.additionsOf(panels);
     
     public final PublishSubject<PanelModel> addPanelModel = PublishSubject.create();
@@ -48,8 +50,18 @@ public abstract class GridLineModel {
         this.gridLines = gridLines;
     }
     
+    public GridLineModel(double ratioPosition, ObservableList<? extends GridLineModel> gridLines, List<PanelModel> panels) {
+        ratioPositionProperty.set(ratioPosition);
+        this.gridLines = gridLines;
+        this.panels.setAll(panels);
+    }
+    
     public Double getRatioPosition() {
         return ratioPositionProperty.get();
+    }
+    
+    public void setRatioPosition(double value) {
+        ratioPositionProperty.set(value);
     }
 
     private void onPanelAdded(PanelModel panel) {
@@ -70,7 +82,7 @@ public abstract class GridLineModel {
     }
     
     public ObservableList<LineModel> getLines() {
-        return unmodifiableLines;
+        return lines;
     }
     
     public Observable<Double> ratioPositionObservable() {
